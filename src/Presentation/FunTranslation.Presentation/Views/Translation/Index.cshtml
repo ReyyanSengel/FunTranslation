@@ -1,0 +1,83 @@
+﻿@model TranslateViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Translation</h3>
+
+<div id="myform">
+    <form>
+        <div class="form-group row">
+            <div class="col-2">
+                <label for="InputOriginal">Original Text: </label>
+            </div>
+            <div class="col-10">
+                <input type="text" asp-for="@Model.MainText" class="form-control" id="MainText" aria-describedby="MainText" placeholder="Original Text">
+                <small id="MainText" class="form-text text-muted"></small>
+                <span asp-validation-for="MainText" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row mt-2">
+            <div class="col-2">
+                <label for="InputLanguageId">Language Name:</label>
+            </div>
+            <div class="col-10">
+                @Html.DropDownListFor(i=>i.LanguageId, ViewBag.Languages as List<SelectListItem>, "Select Language", new { @class ="form-control"})
+                <span asp-validation-for="LanguageId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row mt-2">
+            <div class="col-2">
+                <label for="InputTranslate">Translated Text</label>
+            </div>
+            <div class="col-10">
+                <input type="text" asp-for="@Model.TranslateText" class="form-control" id="TranslateText" aria-describedby="TranslateText" placeholder="Translated Text">
+                <small id="TranslateText" class="form-text text-muted"></small>
+            </div>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+
+        <div class="row col-2 mt-2">
+            <button type="button" id="btnSave" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
+</div>
+
+@section Scripts{
+<script>
+    $("#btnSave").click(function () {
+        $.ajax(
+            {
+                type: "post",
+                url: "/Translation/Index",
+                data: {
+                    LanguageId: $("#LanguageId").val(),
+                    MainText: $("#MainText").val()
+                },
+                success: function (data) {
+                    if (data != null) {
+                        let response = jQuery.parseJSON(data);
+                        $("#TranslateText").val(response.TranslateText)
+                    } else {
+                        alert("Something went wrong");
+                    }
+                },
+                failure: function (data) {
+                    alert(data.responseText);
+                },
+                error: function (data) {
+                    $('#myform').html(data.responseText);
+                }
+            }
+        );
+    });
+
+                                                          
+
+</script>
+
+}

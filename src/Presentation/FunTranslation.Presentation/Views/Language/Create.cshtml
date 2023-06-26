@@ -1,0 +1,23 @@
+﻿@model LanguageCreateViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h3>Language Create</h3>
+
+<form asp-action="Create" asp-controller="Language" method="post">
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label for="InputlanguageName">Language Name:</label>
+        </div>
+        <div class="col-3">
+            <input type="text" asp-for="@Model.Name" class="form-control" id="languageName" aria-describedby="languageName" placeholder="Language Name">
+            <small id="languageName" class="form-text text-muted"></small>
+        </div>
+        @*<br />*@
+        <button type="submit" class="btn btn-primary col-2">Submit</button>
+    </div>
+</form>
+
+

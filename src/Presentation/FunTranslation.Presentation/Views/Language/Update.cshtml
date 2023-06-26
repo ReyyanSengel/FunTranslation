@@ -1,0 +1,30 @@
+﻿@model LanguageUpdateViewModel
+@{
+    ViewData["Title"] = "Update";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            
+            <form class="forms-sample" asp-action="Update" method="post">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="CreateUserId" />
+                <input type="hidden" asp-for="CreateDate" />
+                <input type="hidden" asp-for="UpdateUserId" />
+                <input type="hidden" asp-for="UpdateDate" />
+                <div class="form-group">
+                    <label asp-for="Name">Language Name</label>
+                    <input class="form-control" type="text" asp-for="Name" />
+                    <span asp-validation-for="Name"></span>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
